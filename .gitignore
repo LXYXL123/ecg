@@ -1,0 +1,38 @@
+# 忽略数据集和模型文件
+*.pt
+*.npy
+*.csv
+*.pkl
+*.ckpt
+*.h5
+*.edf
+*.mat
+*.zip
+*.tar
+*.tar.gz
+*.7z
+*.hea
+*.dat
+
+# 忽略缓存目录
+__pycache__/
+*.py[cod]
+.cache/
+*.log
+logs/
+wandb/
+output/
+runs/
+checkpoints/
+results/
+
+# Jupyter/VSCode 相关
+.ipynb_checkpoints/
+.vscode/
+.DS_Store
+
+# 环境配置文件
+.env
+.venv/
+*.egg-info/
+
