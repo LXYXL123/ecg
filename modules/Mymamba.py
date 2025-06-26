@@ -70,6 +70,7 @@ class MambaForECGClassification(nn.Module):
     def __init__(self, input_dim, num_classes, d_model=128, n_layer=6):
         super().__init__()
         args = ModelArgs(d_model=d_model, n_layer=n_layer, vocab_size=1)
+        self.model_name = 'mamba'
         self.backbone = Mamba(args)
         self.input_proj = nn.Linear(input_dim, d_model)
         self.pool = nn.AdaptiveAvgPool1d(1)

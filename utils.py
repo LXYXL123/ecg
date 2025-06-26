@@ -85,7 +85,7 @@ def train(model, train_loader, val_loader, optimizer, criterion, num_epochs,
     if not os.path.isdir(model_save_path):  # 确保保存地址为目录
         model_save_path = os.path.dirname(model_save_path)
 
-    torch.save(model.state_dict(), os.path.join(model_save_path, f'{model.model_name}_epochs{num_epochs}.pth'))
+    torch.save(model.state_dict(), os.path.join(model_save_path, f'{model.model_name}_epoch{num_epochs}.pth'))
     print(f'模型训练完成，保存在{model_save_path}')
     # # 加载
     # model.load_state_dict(torch.load("mamba_epoch10.pth"))

@@ -1,6 +1,6 @@
 from torch.utils.data import DataLoader
 from dataset_precessing import ECGDatasetLoader
-from modules.mamba import MambaForECGClassification
+from modules.Mymamba import MambaForECGClassification
 import torch
 from torch.nn import BCEWithLogitsLoss
 from utils import train, test
@@ -35,7 +35,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 criterion = BCEWithLogitsLoss()
 
 # 训练
-train(model, train_loader, val_loader, optimizer, criterion, num_epochs=50)
+train(model, train_loader, val_loader, optimizer, criterion, num_epochs=1)
 
 # 测试
 load_model_path = './save_model/mamba_epoch50.pth'
