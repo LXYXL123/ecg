@@ -3,8 +3,12 @@ import torch
 from tqdm import tqdm
 import os
 
-
-device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
+if torch.backends.mps.is_available():
+    device = torch.device('mps')
+elif torch.cuda.is_available():
+    device = torch.device('cuda')
+else:
+    device = torch.device('cpu')
 
 def train(model, train_loader, val_loader, optimizer, criterion, num_epochs,
           model_save_path: str = None):
@@ -24,7 +28,6 @@ def train(model, train_loader, val_loader, optimizer, criterion, num_epochs,
 
             logits = model(signals)
             loss = criterion(logits, labels)
-
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -43,6 +46,7 @@ def train(model, train_loader, val_loader, optimizer, criterion, num_epochs,
         train_binary_acc = train_correct / train_total
 
         # ---------- Validate ----------
+        model.to(device)
         model.eval()
         val_correct = 0
         val_total = 0
