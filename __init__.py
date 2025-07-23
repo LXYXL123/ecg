@@ -90,13 +90,13 @@ else:
     device = torch.device('cpu')
 
 # 随机生成信号（模拟 ECG）
-dummy_signals = torch.randn(32, 1000, 12)
+dummy_signals = torch.randn(32, 10, 12)
 # 随机生成多标签 [0, 1] 标签，float 用于 BCELoss
 dummy_labels = torch.randint(0, 2, (32, num_classes)).float()
 
 # 切分训练/验证集
-train_dataset = TensorDataset(dummy_signals[:48], dummy_labels[:48])
-val_dataset = TensorDataset(dummy_signals[48:], dummy_labels[48:])
+train_dataset = TensorDataset(dummy_signals, dummy_labels)
+val_dataset = TensorDataset(dummy_signals, dummy_labels)
 
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=32)
@@ -116,5 +116,5 @@ optimizer = optim.Adam(model.parameters(), lr=1e-3)
 
 # 训练
 print(f'正在训练模型{model.model_name}')
-train(model, train_loader, val_loader, optimizer, criterion, num_epochs=1)
+train(model, train_loader, val_loader, optimizer, criterion, num_epochs=100)
 print(f'模型{model.model_name}训练完毕\n\n\n')

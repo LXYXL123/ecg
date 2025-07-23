@@ -100,7 +100,6 @@ class Mamba(nn.Module):
 
 
     def forward(self, hidden_states):   # (B, L, d_model)
-        print(1)
         B, L, D = hidden_states.shape
 
         device = self.factory_kwargs['device']
@@ -144,14 +143,14 @@ class Mamba(nn.Module):
             y = torch.einsum('bdn,bn->bd', s, C_param[:, t])    # (B, D)
             # y = torch.sum(s * C_param[:, t].unsqueeze(-1), dim=-1)  # (B, D)
             y = y + self.D * x[:, t]    # (B, D)
-            y = y * self.act(z[:, t])
             ys.append(y)
 
         y = torch.stack(ys, dim=1)  # (B, L, D)
 
+        y = y * self.act(z)
         out = self.out_proj(y)  # (B, L, d_model)
 
-        out = out + hidden_states   # 残差结构 (N, L, d_model)
+        out = out + hidden_states   # 残差结构 (B, L, d_model)
 
         return out
 
